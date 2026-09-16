@@ -1275,17 +1275,42 @@ footer {
   opacity: 0.7;
   transform: translate(-50%, -50%);
   transition:
-    width 0.2s ease,
-    height 0.2s ease,
-    border-color 0.2s ease,
-    opacity 0.2s ease;
+    width 0.25s ease,
+    height 0.25s ease,
+    border-color 0.25s ease,
+    opacity 0.25s ease,
+    background 0.25s ease;
   display: none;
+  align-items: center;
+  justify-content: center;
 }
 .cursor-ring.hover {
   width: 56px;
   height: 56px;
   border-color: var(--cyan);
   opacity: 1;
+}
+.cursor-ring.project-hover {
+  width: 72px;
+  height: 72px;
+  border-color: var(--cyan);
+  opacity: 1;
+  background: rgba(13, 22, 38, 0.65);
+}
+.cursor-ring-text {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--cyan);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+}
+.cursor-ring.project-hover .cursor-ring-text {
+  opacity: 1;
+}
+body.custom-cursor.project-hovering .cursor-dot {
+  opacity: 0;
 }
 body.custom-cursor,
 body.custom-cursor a,

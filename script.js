@@ -507,16 +507,28 @@ if (window.matchMedia("(pointer: fine)").matches) {
   }
   animateCursorRing();
 
-  document
-    .querySelectorAll("a, button, .skill-chip, .project-card")
-    .forEach((el) => {
-      el.addEventListener("mouseenter", () =>
-        cursorRing.classList.add("hover"),
-      );
-      el.addEventListener("mouseleave", () =>
-        cursorRing.classList.remove("hover"),
-      );
+  document.querySelectorAll("a, button, .skill-chip").forEach((el) => {
+    el.addEventListener("mouseenter", () => cursorRing.classList.add("hover"));
+    el.addEventListener("mouseleave", () =>
+      cursorRing.classList.remove("hover"),
+    );
+  });
+
+  const cursorRingText = document.getElementById("cursor-ring-text");
+  document.querySelectorAll(".project-card").forEach((el) => {
+    el.addEventListener("mouseenter", () => {
+      cursorRing.classList.add("project-hover");
+      document.body.classList.add("project-hovering");
+      cursorRingText.textContent = el.classList.contains("pending")
+        ? "Soon"
+        : "View";
     });
+    el.addEventListener("mouseleave", () => {
+      cursorRing.classList.remove("project-hover");
+      document.body.classList.remove("project-hovering");
+      cursorRingText.textContent = "";
+    });
+  });
 }
 
 /* ---------------- Back to top ---------------- */
