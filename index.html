@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Harsh Dahat — MERN Stack Developer</title>
+    <link rel="icon" type="image/svg+xml" href="logo.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -18,7 +19,10 @@
     <div id="rocket-layer"></div>
 
     <nav>
-      <div class="logo">Harsh <span>Dahat</span></div>
+      <div class="logo">
+        <img src="logo.svg" alt="HD logo" class="logo-mark" />Harsh
+        <span>Dahat</span>
+      </div>
       <div class="nav-links" id="nav-links">
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
@@ -51,20 +55,7 @@
       </div>
       <div class="hero-deco">
         <div class="deco-dots"><span></span><span></span><span></span></div>
-        <div class="deco-line">
-          <span class="key">const</span> developer = {
-        </div>
-        <div class="deco-line">
-          &nbsp;&nbsp;name: <span class="str">"Harsh Dahat"</span>,
-        </div>
-        <div class="deco-line">
-          &nbsp;&nbsp;stack: [<span class="str">"React"</span>,
-          <span class="str">"Node"</span>, <span class="str">"Mongo"</span>],
-        </div>
-        <div class="deco-line">
-          &nbsp;&nbsp;learning: <span class="key">true</span>
-        </div>
-        <div class="deco-line">};<span class="cursor"></span></div>
+        <div class="deco-code" id="deco-code"></div>
       </div>
     </section>
 
@@ -96,11 +87,34 @@
             alongside experienced engineers.
           </p>
         </div>
-        <div class="fact-list reveal reveal-right">
-          <div><b>Education</b>BSc (PCM), 3rd year</div>
-          <div><b>Training</b>Web Development — Avish Educom</div>
-          <div><b>Focus</b>MERN Stack &amp; Next.js</div>
-          <div><b>Status</b>Open to internships / projects</div>
+        <div class="edu-timeline reveal reveal-right">
+          <div class="edu-item">
+            <div class="edu-dot pulse"></div>
+            <div class="edu-content">
+              <div class="edu-badge in-progress">Pursuing · 3rd Year</div>
+              <h4>BSc (PCM)</h4>
+              <p>
+                Core science degree in Physics, Chemistry &amp; Mathematics —
+                currently in the final year, balanced alongside hands-on
+                development work.
+              </p>
+            </div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-dot"></div>
+            <div class="edu-content">
+              <div class="edu-badge done">Completed</div>
+              <h4>Web Development — Avish Educom</h4>
+              <p>
+                Structured training covering the MERN stack end-to-end, from
+                fundamentals to building complete, deployable applications.
+              </p>
+            </div>
+          </div>
+          <div class="edu-mini-facts">
+            <div><b>Focus</b>MERN Stack &amp; Next.js</div>
+            <div><b>Status</b>Open to internships / projects</div>
+          </div>
         </div>
       </div>
     </section>
@@ -151,28 +165,221 @@
 
     <div class="modal-overlay" id="modal">
       <div class="modal-box">
-        <button class="modal-close" id="modal-close">&times;</button>
-        <div class="modal-num" id="modal-num"></div>
-        <h3 class="modal-title" id="modal-title"></h3>
-        <p class="modal-desc" id="modal-desc"></p>
-        <div class="modal-tags" id="modal-tags"></div>
-        <div class="modal-links">
-          <a
-            href="#"
-            class="modal-live launch-link"
-            id="modal-live"
-            target="_blank"
-            rel="noopener"
-            >Live demo</a
-          >
-          <a
-            href="#"
-            class="modal-git launch-link"
-            id="modal-git"
-            target="_blank"
-            rel="noopener"
-            >GitHub repo</a
-          >
+        <video
+          class="modal-video"
+          id="modal-video"
+          muted
+          loop
+          playsinline
+        ></video>
+        <div class="ai-scene" id="ai-scene">
+          <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+            <!-- scrolling code lines -->
+            <g class="ai-codelines">
+              <rect
+                x="14"
+                y="10"
+                width="46"
+                height="4"
+                rx="2"
+                fill="#38bdf8"
+                opacity="0.5"
+              />
+              <rect
+                x="14"
+                y="20"
+                width="30"
+                height="4"
+                rx="2"
+                fill="#818cf8"
+                opacity="0.4"
+              />
+              <rect
+                x="14"
+                y="30"
+                width="54"
+                height="4"
+                rx="2"
+                fill="#38bdf8"
+                opacity="0.5"
+              />
+              <rect
+                x="14"
+                y="40"
+                width="24"
+                height="4"
+                rx="2"
+                fill="#61dafb"
+                opacity="0.4"
+              />
+              <rect
+                x="14"
+                y="50"
+                width="40"
+                height="4"
+                rx="2"
+                fill="#818cf8"
+                opacity="0.4"
+              />
+              <rect
+                x="14"
+                y="60"
+                width="50"
+                height="4"
+                rx="2"
+                fill="#38bdf8"
+                opacity="0.5"
+              />
+              <rect
+                x="14"
+                y="70"
+                width="28"
+                height="4"
+                rx="2"
+                fill="#61dafb"
+                opacity="0.4"
+              />
+              <rect
+                x="14"
+                y="80"
+                width="46"
+                height="4"
+                rx="2"
+                fill="#38bdf8"
+                opacity="0.5"
+              />
+              <rect
+                x="14"
+                y="90"
+                width="30"
+                height="4"
+                rx="2"
+                fill="#818cf8"
+                opacity="0.4"
+              />
+              <rect
+                x="14"
+                y="100"
+                width="54"
+                height="4"
+                rx="2"
+                fill="#38bdf8"
+                opacity="0.5"
+              />
+            </g>
+            <!-- rotating gear -->
+            <g class="ai-gear" transform="translate(170,30)">
+              <circle r="12" fill="none" stroke="#818cf8" stroke-width="3" />
+              <circle r="4" fill="#818cf8" />
+              <g stroke="#818cf8" stroke-width="3">
+                <line x1="0" y1="-16" x2="0" y2="-11" />
+                <line x1="0" y1="16" x2="0" y2="11" />
+                <line x1="-16" y1="0" x2="-11" y2="0" />
+                <line x1="16" y1="0" x2="11" y2="0" />
+              </g>
+            </g>
+            <!-- robot -->
+            <g transform="translate(100,95)">
+              <rect
+                x="-22"
+                y="-30"
+                width="44"
+                height="34"
+                rx="10"
+                fill="#0d1626"
+                stroke="#38bdf8"
+                stroke-width="2.5"
+              />
+              <line
+                x1="0"
+                y1="-30"
+                x2="0"
+                y2="-40"
+                stroke="#38bdf8"
+                stroke-width="2.5"
+              />
+              <circle
+                cx="0"
+                cy="-42"
+                r="3.5"
+                fill="#61dafb"
+                class="ai-antenna"
+              />
+              <circle cx="-10" cy="-16" r="4" fill="#61dafb" class="ai-eye" />
+              <circle cx="10" cy="-16" r="4" fill="#61dafb" class="ai-eye" />
+              <rect
+                x="-30"
+                y="-6"
+                width="10"
+                height="4"
+                rx="2"
+                fill="#818cf8"
+                class="ai-arm-l"
+              />
+              <rect
+                x="20"
+                y="-6"
+                width="10"
+                height="4"
+                rx="2"
+                fill="#818cf8"
+                class="ai-arm-r"
+              />
+              <rect
+                x="-26"
+                y="2"
+                width="52"
+                height="6"
+                rx="3"
+                fill="#0b1220"
+                stroke="#1b2a41"
+              />
+            </g>
+            <!-- progress bar -->
+            <rect
+              x="14"
+              y="122"
+              width="172"
+              height="5"
+              rx="2.5"
+              fill="#1b2a41"
+            />
+            <rect
+              x="14"
+              y="122"
+              width="60"
+              height="5"
+              rx="2.5"
+              fill="#38bdf8"
+              class="ai-progress"
+            />
+          </svg>
+        </div>
+        <div class="modal-tint"></div>
+        <div class="modal-content">
+          <button class="modal-close" id="modal-close">&times;</button>
+          <div class="modal-num" id="modal-num"></div>
+          <h3 class="modal-title" id="modal-title"></h3>
+          <p class="modal-desc" id="modal-desc"></p>
+          <div class="modal-tags" id="modal-tags"></div>
+          <div class="modal-links">
+            <a
+              href="#"
+              class="modal-live launch-link"
+              id="modal-live"
+              target="_blank"
+              rel="noopener"
+              >Live demo</a
+            >
+            <a
+              href="#"
+              class="modal-git launch-link"
+              id="modal-git"
+              target="_blank"
+              rel="noopener"
+              >GitHub repo</a
+            >
+          </div>
         </div>
       </div>
     </div>

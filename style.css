@@ -82,6 +82,14 @@ nav {
   font-weight: 700;
   font-size: 19px;
   color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
 }
 .logo span {
   color: var(--cyan);
@@ -306,9 +314,10 @@ h1.name .accent {
 .hero-deco .deco-dots span:nth-child(3) {
   background: #4ade80;
 }
-.hero-deco .deco-line {
-  white-space: pre;
-  margin-bottom: 4px;
+.deco-code {
+  white-space: pre-wrap;
+  min-height: 110px;
+  word-break: break-word;
 }
 .hero-deco .key {
   color: var(--indigo);
@@ -396,6 +405,91 @@ h2 {
   color: var(--text);
   font-weight: 500;
   margin-bottom: 4px;
+}
+
+/* ---------- Education timeline ---------- */
+.edu-timeline {
+  position: relative;
+  padding-left: 4px;
+}
+.edu-item {
+  position: relative;
+  padding-left: 32px;
+  padding-bottom: 30px;
+}
+.edu-item::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 16px;
+  bottom: -14px;
+  width: 1px;
+  background: var(--line);
+}
+.edu-item:last-of-type::before {
+  display: none;
+}
+.edu-dot {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--indigo);
+  box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.15);
+}
+.edu-dot.pulse {
+  background: var(--ice);
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.18);
+  animation: pulse 2s ease-in-out infinite;
+}
+.edu-badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 9px;
+}
+.edu-badge.in-progress {
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--ice);
+}
+.edu-badge.done {
+  background: rgba(129, 140, 248, 0.15);
+  color: var(--indigo);
+}
+.edu-content h4 {
+  font-family: var(--head);
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.edu-content p {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+.edu-mini-facts {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+  padding-left: 32px;
+  margin-top: -8px;
+}
+.edu-mini-facts div {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+.edu-mini-facts b {
+  display: block;
+  font-family: var(--body);
+  font-size: 13.5px;
+  color: var(--text);
+  font-weight: 500;
+  margin-bottom: 3px;
 }
 
 /* ---------- Skills ---------- */
@@ -794,16 +888,129 @@ h2 {
   border-radius: 14px;
   max-width: 520px;
   width: 100%;
-  padding: 36px;
+  padding: 0;
   transform: scale(0.7) rotateY(25deg);
   opacity: 0;
   transition:
     transform 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.2),
     opacity 0.35s ease;
+  position: relative;
+  overflow: hidden;
 }
 .modal-overlay.active .modal-box {
   transform: scale(1) rotateY(0deg);
   opacity: 1;
+}
+.modal-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.55;
+  z-index: 0;
+}
+.ai-scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  display: none;
+  opacity: 0.5;
+}
+.modal-box.show-ai .ai-scene {
+  display: block;
+}
+.ai-scene svg {
+  width: 100%;
+  height: 100%;
+}
+.ai-eye {
+  animation: aiBlink 2.6s ease-in-out infinite;
+}
+.ai-antenna {
+  animation: pulse 1.4s ease-in-out infinite;
+}
+.ai-arm-l {
+  transform-origin: -20px -6px;
+  animation: armTypeL 0.5s ease-in-out infinite alternate;
+}
+.ai-arm-r {
+  transform-origin: 20px -6px;
+  animation: armTypeR 0.5s ease-in-out infinite alternate 0.25s;
+}
+.ai-gear {
+  animation: gearSpin 4s linear infinite;
+  transform-origin: 170px 30px;
+}
+.ai-codelines {
+  animation: codeScroll 6s linear infinite;
+}
+.ai-progress {
+  animation: progressGrow 2.4s ease-in-out infinite alternate;
+}
+@keyframes aiBlink {
+  0%,
+  90%,
+  100% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 0.15;
+  }
+}
+@keyframes armTypeL {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-12deg);
+  }
+}
+@keyframes armTypeR {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(12deg);
+  }
+}
+@keyframes gearSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes codeScroll {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-15px);
+  }
+}
+@keyframes progressGrow {
+  from {
+    width: 40px;
+  }
+  to {
+    width: 150px;
+  }
+}
+.modal-tint {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(13, 22, 38, 0.55),
+    rgba(13, 22, 38, 0.82)
+  );
+}
+.modal-content {
+  position: relative;
+  z-index: 1;
+  padding: 36px;
 }
 .modal-close {
   float: right;

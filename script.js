@@ -1,3 +1,60 @@
+/* ---------------- Hero code snippet — rotating typewriter ---------------- */
+const codeSnippets = [
+  `const dev = {\n  name: "Harsh Dahat",\n  stack: ["React", "Node", "Mongo"],\n  learning: true\n};`,
+  `while (bugs.length) {\n  fix(bugs.pop());\n  coffee++;\n}`,
+  `git commit -m "it works,\ndon't ask how"`,
+  `export default function Life() {\n  return <Code onWeekends />;\n}`,
+  `console.log("Hello World,\nI build things.");`,
+];
+function highlightCode(text) {
+  return text
+    .replace(/"(.*?)"/g, '<span class="str">"$1"</span>')
+    .replace(
+      /\b(const|while|export|default|function|return|true|false)\b/g,
+      '<span class="key">$1</span>',
+    );
+}
+const decoEl = document.getElementById("deco-code");
+if (decoEl) {
+  const reduceMotionTyping = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+  if (reduceMotionTyping) {
+    decoEl.innerHTML = highlightCode(codeSnippets[0]);
+  } else {
+    let snippetIndex = 0;
+    function typeSnippet() {
+      const text = codeSnippets[snippetIndex];
+      let i = 0;
+      decoEl.textContent = "";
+      const typeTimer = setInterval(() => {
+        i++;
+        decoEl.textContent = text.slice(0, i);
+        if (i >= text.length) {
+          clearInterval(typeTimer);
+          decoEl.innerHTML =
+            highlightCode(text) + '<span class="cursor"></span>';
+          setTimeout(eraseSnippet, 1800);
+        }
+      }, 28);
+    }
+    function eraseSnippet() {
+      const text = codeSnippets[snippetIndex];
+      let i = text.length;
+      const eraseTimer = setInterval(() => {
+        i--;
+        decoEl.textContent = text.slice(0, i);
+        if (i <= 0) {
+          clearInterval(eraseTimer);
+          snippetIndex = (snippetIndex + 1) % codeSnippets.length;
+          setTimeout(typeSnippet, 300);
+        }
+      }, 14);
+    }
+    typeSnippet();
+  }
+}
+
 /* ---------------- Skills / logos ---------------- */
 const skills = [
   {
@@ -166,6 +223,7 @@ const projects = [
     tags: ["React", "Node.js", "Express", "MongoDB"],
     live: "https://cartora-store.vercel.app/",
     git: "https://github.com/harshdahat20-web/ecommerce-frontend",
+    video: "videos/ecommerce-bg.mp4",
   },
   {
     title: "Real-Time Chat Application",
@@ -175,6 +233,7 @@ const projects = [
     tags: ["React", "Node.js", "Socket.io", "MongoDB"],
     live: "https://chat-application-seven-ruby.vercel.app",
     git: "https://github.com/harshdahat20-web/chat-Application",
+    video: "videos/chat-bg.mp4",
   },
   {
     title: "Collaborative Code Editor",
@@ -184,6 +243,7 @@ const projects = [
     tags: ["React", "Node.js", "Socket.io"],
     live: "https://code-editor-eight-bice.vercel.app",
     git: "https://github.com/harshdahat20-web/Code-editor",
+    video: "videos/codeeditor-bg.mp4",
   },
   {
     title: "School Management System (SMS)",
@@ -193,6 +253,7 @@ const projects = [
     tags: ["React", "Node.js", "Express", "MongoDB"],
     live: "https://school-management-system-phi-murex.vercel.app",
     git: "https://github.com/harshdahat20-web/School-Management-System",
+    video: "videos/sms-bg.mp4",
   },
   {
     title: "Generative AI Project",
@@ -221,6 +282,8 @@ projectsGrid.innerHTML = projects
   .join("");
 
 const modal = document.getElementById("modal");
+const modalBox = modal.querySelector(".modal-box");
+const modalVideo = document.getElementById("modal-video");
 document.querySelectorAll(".project-card").forEach((card) => {
   card.addEventListener("click", () => {
     const p = projects[card.dataset.index];
@@ -242,11 +305,32 @@ document.querySelectorAll(".project-card").forEach((card) => {
       liveBtn.href = p.live;
       gitBtn.href = p.git;
     }
+
+    // Background: real project video, or the animated "in progress" AI scene
+    if (p.pending) {
+      modalVideo.pause();
+      modalVideo.removeAttribute("src");
+      modalBox.classList.add("show-ai");
+    } else {
+      modalBox.classList.remove("show-ai");
+      if (p.video) {
+        if (modalVideo.getAttribute("src") !== p.video) {
+          modalVideo.src = p.video;
+        }
+        modalVideo.currentTime = 0;
+        modalVideo.play().catch(() => {});
+      } else {
+        modalVideo.pause();
+        modalVideo.removeAttribute("src");
+      }
+    }
+
     modal.classList.add("active");
   });
 });
 function closeModal() {
   modal.classList.remove("active");
+  modalVideo.pause();
 }
 document.getElementById("modal-close").addEventListener("click", closeModal);
 modal.addEventListener("click", (e) => {
