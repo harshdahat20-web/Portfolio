@@ -164,7 +164,7 @@ const projects = [
       "A full-featured e-commerce platform with separate admin and user panels.",
     desc: "A complete e-commerce web application built on the MERN stack, featuring distinct admin and user experiences. The admin panel handles product listings, inventory, and order management, while the user panel supports browsing, cart management, and a smooth checkout flow.",
     tags: ["React", "Node.js", "Express", "MongoDB"],
-    live: "https://ecommerce-frontend-gilt-pi.vercel.app/",
+    live: "https://cartora-store.vercel.app/",
     git: "https://github.com/harshdahat20-web/ecommerce-frontend",
   },
   {
