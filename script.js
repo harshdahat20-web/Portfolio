@@ -310,18 +310,25 @@ document.querySelectorAll(".project-card").forEach((card) => {
     if (p.pending) {
       modalVideo.pause();
       modalVideo.removeAttribute("src");
+      modalVideo.load();
+      modalVideo.style.display = "none";
       modalBox.classList.add("show-ai");
     } else {
       modalBox.classList.remove("show-ai");
       if (p.video) {
+        modalVideo.style.display = "block";
         if (modalVideo.getAttribute("src") !== p.video) {
+          modalVideo.pause();
           modalVideo.src = p.video;
+          modalVideo.load();
         }
         modalVideo.currentTime = 0;
         modalVideo.play().catch(() => {});
       } else {
         modalVideo.pause();
         modalVideo.removeAttribute("src");
+        modalVideo.load();
+        modalVideo.style.display = "none";
       }
     }
 
