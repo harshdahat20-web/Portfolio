@@ -156,50 +156,65 @@ if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   setInterval(spawnRocket, 9000 + Math.random() * 4000);
 }
 
-/* ---------------- Projects (edit this array with your real projects) ---------------- */
+/* ---------------- Projects (edit links below once deployed) ---------------- */
 const projects = [
   {
-    title: "Project name here",
+    title: "E-Commerce Platform",
     short:
-      "Short one-line description of what this project does and what it's built with.",
-    desc: "Replace this with a full description of the project — what problem it solves, key features, and your role in building it.",
-    tags: ["React", "Node.js", "MongoDB"],
-    live: "#",
-    git: "#",
+      "A full-featured e-commerce platform with separate admin and user panels.",
+    desc: "A complete e-commerce web application built on the MERN stack, featuring distinct admin and user experiences. The admin panel handles product listings, inventory, and order management, while the user panel supports browsing, cart management, and a smooth checkout flow.",
+    tags: ["React", "Node.js", "Express", "MongoDB"],
+    live: "https://ecommerce-frontend-gilt-pi.vercel.app/",
+    git: "https://github.com/harshdahat20-web/ecommerce-frontend",
   },
   {
-    title: "Project name here",
+    title: "Real-Time Chat Application",
     short:
-      "Short one-line description of what this project does and what it's built with.",
-    desc: "Replace this with a full description of the project — what problem it solves, key features, and your role in building it.",
-    tags: ["Next.js", "Tailwind CSS", "Express"],
-    live: "#",
-    git: "#",
+      "A real-time messaging app powered by Socket.io for instant, bidirectional chat.",
+    desc: "A real-time chat application enabling instant, bidirectional communication between users. Built with Socket.io to handle live message delivery and connection state, keeping conversations perfectly in sync without page reloads.",
+    tags: ["React", "Node.js", "Socket.io", "MongoDB"],
+    live: "https://chat-application-seven-ruby.vercel.app",
+    git: "https://github.com/harshdahat20-web/chat-Application",
   },
   {
-    title: "Project name here",
+    title: "Collaborative Code Editor",
     short:
-      "Short one-line description of what this project does and what it's built with.",
-    desc: "Replace this with a full description of the project — what problem it solves, key features, and your role in building it.",
-    tags: ["MERN", "REST API"],
+      "A real-time collaborative editor where multiple users can code together simultaneously.",
+    desc: "A collaborative code editor that lets multiple users write and edit code together in real time. Powered by Socket.io, it synchronizes changes instantly across all connected clients, enabling a shared live-coding experience.",
+    tags: ["React", "Node.js", "Socket.io"],
+    live: "https://code-editor-eight-bice.vercel.app",
+    git: "https://github.com/harshdahat20-web/Code-editor",
+  },
+  {
+    title: "School Management System (SMS)",
+    short:
+      "A role-based school management system with admin, teacher, and student panels.",
+    desc: "A school management system built with dedicated, role-based panels for admins, teachers, and students. Covers day-to-day academic workflows — including managing records, communication, and access control tailored to each role.",
+    tags: ["React", "Node.js", "Express", "MongoDB"],
+    live: "https://school-management-system-phi-murex.vercel.app",
+    git: "https://github.com/harshdahat20-web/School-Management-System",
+  },
+  {
+    title: "Generative AI Project",
+    short: "An AI-powered application — currently in active development.",
+    desc: "A generative AI-based application currently in progress. Full details, tech stack, live demo, and source code will be added here once development is complete.",
+    tags: ["Generative AI", "In progress"],
     live: "#",
     git: "#",
+    pending: true,
   },
 ];
 const projectsGrid = document.getElementById("projects-grid");
 projectsGrid.innerHTML = projects
   .map(
     (p, i) => `
-    <div class="project-card reveal reveal-up" data-index="${i}" style="transition-delay:${i * 0.12}s">
+    <div class="project-card reveal reveal-up${p.pending ? " pending" : ""}" data-index="${i}" style="transition-delay:${i * 0.12}s">
       <div>
-        <div class="ph-num">Project 0${i + 1}</div>
+        <div class="ph-num">Project 0${i + 1}${p.pending ? " · In progress" : ""}</div>
         <h3>${p.title}</h3>
         <p>${p.short}</p>
       </div>
-      <div>
-        <div class="edit-note">// replace this card with your project</div>
-        <div class="open-hint">click to view details <span>&rarr;</span></div>
-      </div>
+      <div class="open-hint">${p.pending ? "more coming soon" : "click to view details"} <span>&rarr;</span></div>
     </div>
   `,
   )
@@ -216,8 +231,17 @@ document.querySelectorAll(".project-card").forEach((card) => {
     document.getElementById("modal-tags").innerHTML = p.tags
       .map((t) => `<span>${t}</span>`)
       .join("");
-    document.getElementById("modal-live").href = p.live;
-    document.getElementById("modal-git").href = p.git;
+    const liveBtn = document.getElementById("modal-live");
+    const gitBtn = document.getElementById("modal-git");
+    if (p.pending) {
+      liveBtn.style.display = "none";
+      gitBtn.style.display = "none";
+    } else {
+      liveBtn.style.display = "inline-block";
+      gitBtn.style.display = "inline-block";
+      liveBtn.href = p.live;
+      gitBtn.href = p.git;
+    }
     modal.classList.add("active");
   });
 });
@@ -299,3 +323,25 @@ const io = new IntersectionObserver(
   { threshold: 0.15 },
 );
 document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+/* ---------------- Rocket launch transition for outbound links ---------------- */
+const launchOverlay = document.getElementById("launch-transition");
+function playLaunchTransition(href, target) {
+  launchOverlay.classList.add("show");
+  setTimeout(() => {
+    if (target === "_blank") {
+      window.open(href, "_blank", "noopener");
+      launchOverlay.classList.remove("show");
+    } else {
+      window.location.href = href;
+    }
+  }, 950);
+}
+document.querySelectorAll(".launch-link").forEach((link) => {
+  link.addEventListener("click", function (e) {
+    const href = this.getAttribute("href");
+    if (!href || href === "#") return; // ignore unset project links
+    e.preventDefault();
+    playLaunchTransition(href, this.getAttribute("target"));
+  });
+});

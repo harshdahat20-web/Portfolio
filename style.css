@@ -595,6 +595,106 @@ h2 {
   }
 }
 
+/* ---------- Full-screen launch transition (external link clicks) ---------- */
+.launch-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+  overflow: hidden;
+}
+.launch-transition.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.launch-transition::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, rgba(226, 232, 240, 0.6), transparent),
+    radial-gradient(2px 2px at 70% 60%, rgba(226, 232, 240, 0.4), transparent),
+    radial-gradient(
+      1.5px 1.5px at 40% 80%,
+      rgba(226, 232, 240, 0.5),
+      transparent
+    ),
+    radial-gradient(
+      1.5px 1.5px at 85% 20%,
+      rgba(226, 232, 240, 0.5),
+      transparent
+    ),
+    radial-gradient(2px 2px at 55% 45%, rgba(226, 232, 240, 0.4), transparent);
+  opacity: 0;
+}
+.launch-transition.show::before {
+  animation: starStreak 0.9s ease-in forwards 0.1s;
+}
+@keyframes starStreak {
+  from {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  20% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(60vh);
+  }
+}
+.launch-rocket {
+  width: 120px;
+  height: 250px;
+}
+.launch-transition.show .launch-rocket {
+  animation: bigLaunch 1.15s cubic-bezier(0.6, 0, 0.85, 1) 0.15s forwards;
+}
+.launch-rocket svg {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+.launch-transition.show .launch-rocket svg {
+  opacity: 1;
+}
+@keyframes bigLaunch {
+  0% {
+    transform: translateY(30vh) scale(0.6);
+  }
+  20% {
+    transform: translateY(15vh) scale(0.8);
+  }
+  100% {
+    transform: translateY(-90vh) scale(1.4);
+  }
+}
+.launch-text {
+  margin-top: 24px;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--muted);
+  opacity: 0;
+}
+.launch-transition.show .launch-text {
+  animation: fadeInText 0.4s ease 0.3s forwards;
+}
+@keyframes fadeInText {
+  to {
+    opacity: 1;
+  }
+}
+.launch-text .dots {
+  animation: blink 1s step-end infinite;
+}
+
 /* ---------- Projects ---------- */
 .projects-grid {
   display: grid;
@@ -604,7 +704,7 @@ h2 {
 }
 .project-card {
   background: var(--card);
-  border: 1px dashed var(--line);
+  border: 1px solid var(--line);
   border-radius: 10px;
   padding: 28px;
   min-height: 210px;
@@ -660,6 +760,13 @@ h2 {
 }
 .project-card:hover .open-hint span {
   transform: translateX(5px);
+}
+.project-card.pending {
+  border-style: dashed;
+  opacity: 0.8;
+}
+.project-card.pending .ph-num {
+  color: var(--indigo);
 }
 
 /* ---------- Modal ---------- */

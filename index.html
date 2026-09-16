@@ -126,9 +126,23 @@
         <h2>Let's build something</h2>
         <p>Add your email, GitHub, and LinkedIn links here.</p>
         <div class="contact-links">
-          <a href="#">GitHub — add link</a>
-          <a href="#">LinkedIn — add link</a>
-          <a href="#">Email — add address</a>
+          <a
+            href="https://github.com/harshdahat20-web"
+            target="_blank"
+            rel="noopener"
+            class="launch-link"
+            >GitHub</a
+          >
+          <a
+            href="https://www.linkedin.com/in/harshdahatdev"
+            target="_blank"
+            rel="noopener"
+            class="launch-link"
+            >LinkedIn</a
+          >
+          <a href="mailto:youremail@example.com" class="launch-link"
+            >Email me</a
+          >
         </div>
       </div>
     </section>
@@ -145,7 +159,7 @@
         <div class="modal-links">
           <a
             href="#"
-            class="modal-live"
+            class="modal-live launch-link"
             id="modal-live"
             target="_blank"
             rel="noopener"
@@ -153,7 +167,7 @@
           >
           <a
             href="#"
-            class="modal-git"
+            class="modal-git launch-link"
             id="modal-git"
             target="_blank"
             rel="noopener"
@@ -161,6 +175,34 @@
           >
         </div>
       </div>
+    </div>
+
+    <div class="launch-transition" id="launch-transition">
+      <div class="launch-rocket">
+        <svg viewBox="0 0 34 70" xmlns="http://www.w3.org/2000/svg">
+          <ellipse
+            class="flame"
+            cx="17"
+            cy="62"
+            rx="6.5"
+            ry="13"
+            fill="#f59e0b"
+          />
+          <ellipse class="flame" cx="17" cy="60" rx="4" ry="9" fill="#fde68a" />
+          <path
+            d="M17 2 C26 14 27 32 24 46 L10 46 C7 32 8 14 17 2 Z"
+            fill="#e2e8f0"
+          />
+          <path
+            d="M17 2 C22 10 24 20 24 30 L10 30 C10 20 12 10 17 2 Z"
+            fill="#38bdf8"
+          />
+          <circle cx="17" cy="24" r="4.5" fill="#0d1626" />
+          <path d="M10 34 L2 46 L10 46 Z" fill="#818cf8" />
+          <path d="M24 34 L32 46 L24 46 Z" fill="#818cf8" />
+        </svg>
+      </div>
+      <div class="launch-text">taking off<span class="dots">...</span></div>
     </div>
 
     <script src="script.js"></script>
