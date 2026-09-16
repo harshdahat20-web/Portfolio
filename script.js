@@ -220,7 +220,16 @@ const projects = [
     short:
       "A full-featured e-commerce platform with separate admin and user panels.",
     desc: "A complete e-commerce web application built on the MERN stack, featuring distinct admin and user experiences. The admin panel handles product listings, inventory, and order management, while the user panel supports browsing, cart management, and a smooth checkout flow.",
-    tags: ["React", "Node.js", "Express", "MongoDB"],
+    tags: [
+      "React",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "REST API",
+      "JWT Authentication",
+      "Role-based Authorization",
+      "Responsive UI",
+    ],
     live: "https://cartora-store.vercel.app/",
     git: "https://github.com/harshdahat20-web/ecommerce-frontend",
     video: "videos/ecommerce-bg.mp4",
@@ -230,7 +239,16 @@ const projects = [
     short:
       "A real-time messaging app powered by Socket.io for instant, bidirectional chat.",
     desc: "A real-time chat application enabling instant, bidirectional communication between users. Built with Socket.io to handle live message delivery and connection state, keeping conversations perfectly in sync without page reloads.",
-    tags: ["React", "Node.js", "Socket.io", "MongoDB"],
+    tags: [
+      "React",
+      "Node.js",
+      "Express",
+      "Socket.io",
+      "MongoDB",
+      "JWT Authentication",
+      "REST API",
+      "Real-time Communication",
+    ],
     live: "https://chat-application-seven-ruby.vercel.app",
     git: "https://github.com/harshdahat20-web/chat-Application",
     video: "videos/chat-bg.mp4",
@@ -240,7 +258,15 @@ const projects = [
     short:
       "A real-time collaborative editor where multiple users can code together simultaneously.",
     desc: "A collaborative code editor that lets multiple users write and edit code together in real time. Powered by Socket.io, it synchronizes changes instantly across all connected clients, enabling a shared live-coding experience.",
-    tags: ["React", "Node.js", "Socket.io"],
+    tags: [
+      "React",
+      "Node.js",
+      "Express",
+      "Socket.io",
+      "JWT Authentication",
+      "REST API",
+      "Real-time Sync",
+    ],
     live: "https://code-editor-eight-bice.vercel.app",
     git: "https://github.com/harshdahat20-web/Code-editor",
     video: "videos/codeeditor-bg.mp4",
@@ -250,7 +276,15 @@ const projects = [
     short:
       "A role-based school management system with admin, teacher, and student panels.",
     desc: "A school management system built with dedicated, role-based panels for admins, teachers, and students. Covers day-to-day academic workflows — including managing records, communication, and access control tailored to each role.",
-    tags: ["React", "Node.js", "Express", "MongoDB"],
+    tags: [
+      "React",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "REST API",
+      "Role-based Authorization",
+      "Responsive UI",
+    ],
     live: "https://school-management-system-phi-murex.vercel.app",
     git: "https://github.com/harshdahat20-web/School-Management-System",
     video: "videos/sms-bg.mp4",
@@ -435,4 +469,62 @@ document.querySelectorAll(".launch-link").forEach((link) => {
     e.preventDefault();
     playLaunchTransition(href, this.getAttribute("target"));
   });
+});
+
+/* ---------------- Scroll progress bar ---------------- */
+const scrollProgress = document.getElementById("scroll-progress");
+function updateScrollProgress() {
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+  scrollProgress.style.width = pct + "%";
+}
+window.addEventListener("scroll", updateScrollProgress);
+updateScrollProgress();
+
+/* ---------------- Custom cursor (mouse-pointer devices only) ---------------- */
+if (window.matchMedia("(pointer: fine)").matches) {
+  document.body.classList.add("custom-cursor");
+  const cursorDot = document.getElementById("cursor-dot");
+  const cursorRing = document.getElementById("cursor-ring");
+  let ringX = window.innerWidth / 2,
+    ringY = window.innerHeight / 2;
+  let targetX = ringX,
+    targetY = ringY;
+
+  window.addEventListener("mousemove", (e) => {
+    targetX = e.clientX;
+    targetY = e.clientY;
+    cursorDot.style.left = `${e.clientX}px`;
+    cursorDot.style.top = `${e.clientY}px`;
+  });
+
+  function animateCursorRing() {
+    ringX += (targetX - ringX) * 0.18;
+    ringY += (targetY - ringY) * 0.18;
+    cursorRing.style.left = `${ringX}px`;
+    cursorRing.style.top = `${ringY}px`;
+    requestAnimationFrame(animateCursorRing);
+  }
+  animateCursorRing();
+
+  document
+    .querySelectorAll("a, button, .skill-chip, .project-card")
+    .forEach((el) => {
+      el.addEventListener("mouseenter", () =>
+        cursorRing.classList.add("hover"),
+      );
+      el.addEventListener("mouseleave", () =>
+        cursorRing.classList.remove("hover"),
+      );
+    });
+}
+
+/* ---------------- Back to top ---------------- */
+const backToTop = document.getElementById("back-to-top");
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 600) backToTop.classList.add("show");
+  else backToTop.classList.remove("show");
+});
+backToTop.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
 });
