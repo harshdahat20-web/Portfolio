@@ -71,13 +71,13 @@ const skills = [
   },
   {
     name: "Express.js",
-    cat: "Backend framework",
+    cat: "Framework",
     color: "#8fa0b8",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
   },
   {
     name: "React",
-    cat: "Frontend library",
+    cat: "Library",
     color: "#61DAFB",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
   },
@@ -107,13 +107,13 @@ const skills = [
   },
   {
     name: "GitHub",
-    cat: "Code hosting",
+    cat: "Platform",
     color: "#8fa0b8",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
   },
   {
     name: "Postman",
-    cat: "API testing",
+    cat: "Tool",
     color: "#FF6C37",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg",
   },
@@ -136,19 +136,19 @@ const skills = [
     icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/render.svg",
   },
 ];
-const skillsGrid = document.getElementById("skills-grid");
-skillsGrid.innerHTML = skills
+const skillChipHTML = skills
   .map(
-    (s, i) => `
+    (s) => `
     <div class="skill-chip" style="--chip-color:${s.color}" data-icon="${s.icon}" data-color="${s.color}">
       <div class="icon-badge"><img src="${s.icon}" alt="${s.name} logo" loading="lazy"></div>
       <span>${s.name}</span>
       <div class="skill-cat">${s.cat}</div>
-      <div class="click-hint">tap to launch &rarr;</div>
     </div>
   `,
   )
   .join("");
+document.getElementById("skills-track").innerHTML = skillChipHTML;
+document.getElementById("skills-track-2").innerHTML = skillChipHTML;
 
 /* ---------------- Skill click "blast" ---------------- */
 document.querySelectorAll(".skill-chip").forEach((chip) => {
@@ -190,13 +190,13 @@ document.querySelectorAll(".skill-chip").forEach((chip) => {
 const rocketLayer = document.getElementById("rocket-layer");
 const rocketSVG = `
     <svg viewBox="0 0 34 70" xmlns="http://www.w3.org/2000/svg">
-      <ellipse class="flame" cx="17" cy="62" rx="6" ry="12" fill="#f59e0b"/>
-      <ellipse class="flame" cx="17" cy="60" rx="3.5" ry="8" fill="#fde68a"/>
-      <path d="M17 2 C26 14 27 32 24 46 L10 46 C7 32 8 14 17 2 Z" fill="#e2e8f0"/>
-      <path d="M17 2 C22 10 24 20 24 30 L10 30 C10 20 12 10 17 2 Z" fill="#38bdf8"/>
-      <circle cx="17" cy="24" r="4.5" fill="#0d1626"/>
-      <path d="M10 34 L2 46 L10 46 Z" fill="#818cf8"/>
-      <path d="M24 34 L32 46 L24 46 Z" fill="#818cf8"/>
+      <ellipse class="flame" cx="17" cy="62" rx="6" ry="12" fill="#e0a52e"/>
+      <ellipse class="flame" cx="17" cy="60" rx="3.5" ry="8" fill="#f3cf7a"/>
+      <path d="M17 2 C26 14 27 32 24 46 L10 46 C7 32 8 14 17 2 Z" fill="#1B1C1F" stroke="#3355E0" stroke-width="1.2"/>
+      <path d="M17 2 C22 10 24 20 24 30 L10 30 C10 20 12 10 17 2 Z" fill="#3355E0"/>
+      <circle cx="17" cy="24" r="4.5" fill="#EFEDE6"/>
+      <path d="M10 34 L2 46 L10 46 Z" fill="#6C5CE7"/>
+      <path d="M24 34 L32 46 L24 46 Z" fill="#6C5CE7"/>
     </svg>`;
 function spawnRocket() {
   const rocket = document.createElement("div");
@@ -304,20 +304,60 @@ projectsGrid.innerHTML = projects
   .map(
     (p, i) => `
     <div class="project-card reveal reveal-up${p.pending ? " pending" : ""}" data-index="${i}" style="transition-delay:${i * 0.12}s">
-      <div>
-        <div class="ph-num">Project 0${i + 1}${p.pending ? " · In progress" : ""}</div>
-        <h3>${p.title}</h3>
-        <p>${p.short}</p>
-      </div>
-      <div class="open-hint">${p.pending ? "more coming soon" : "click to view details"} <span>&rarr;</span></div>
+      ${
+        p.pending
+          ? `<div class="card-ai-bg">
+             <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+               <g class="ai-codelines">
+                 <rect x="14" y="10" width="46" height="4" rx="2" fill="#3355E0" opacity="0.5"/>
+                 <rect x="14" y="20" width="30" height="4" rx="2" fill="#6C5CE7" opacity="0.4"/>
+                 <rect x="14" y="30" width="54" height="4" rx="2" fill="#3355E0" opacity="0.5"/>
+                 <rect x="14" y="40" width="24" height="4" rx="2" fill="#12A594" opacity="0.4"/>
+                 <rect x="14" y="50" width="40" height="4" rx="2" fill="#6C5CE7" opacity="0.4"/>
+                 <rect x="14" y="60" width="50" height="4" rx="2" fill="#3355E0" opacity="0.5"/>
+               </g>
+               <g class="ai-gear" transform="translate(170,30)">
+                 <circle r="12" fill="none" stroke="#6C5CE7" stroke-width="3"/>
+                 <circle r="4" fill="#6C5CE7"/>
+               </g>
+               <g transform="translate(100,95)">
+                 <rect x="-22" y="-30" width="44" height="34" rx="10" fill="#16171C" stroke="#3355E0" stroke-width="2.5"/>
+                 <line x1="0" y1="-30" x2="0" y2="-40" stroke="#3355E0" stroke-width="2.5"/>
+                 <circle cx="0" cy="-42" r="3.5" fill="#12A594" class="ai-antenna"/>
+                 <circle cx="-10" cy="-16" r="4" fill="#12A594" class="ai-eye"/>
+                 <circle cx="10" cy="-16" r="4" fill="#12A594" class="ai-eye"/>
+               </g>
+               <rect x="14" y="122" width="172" height="5" rx="2.5" fill="#2c2d35"/>
+               <rect x="14" y="122" width="60" height="5" rx="2.5" fill="#3355E0" class="ai-progress"/>
+             </svg>
+           </div>`
+          : `<video class="card-bg-video" muted loop playsinline preload="metadata" src="${p.video}"></video>`
+      }
+      <div class="card-tint"></div>
+      <div class="card-num">${String(i + 1).padStart(2, "0")}</div>
+      <div class="card-title">${p.title}${p.pending ? '<span class="card-status">In progress</span>' : ""}</div>
     </div>
   `,
   )
   .join("");
 
+// Autoplay each card's background video once it's in view (saves bandwidth off-screen)
+const cardVideoObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      const vid = entry.target.querySelector(".card-bg-video");
+      if (!vid) return;
+      if (entry.isIntersecting) vid.play().catch(() => {});
+      else vid.pause();
+    });
+  },
+  { threshold: 0.2 },
+);
+document
+  .querySelectorAll(".project-card")
+  .forEach((card) => cardVideoObserver.observe(card));
+
 const modal = document.getElementById("modal");
-const modalBox = modal.querySelector(".modal-box");
-const modalVideo = document.getElementById("modal-video");
 document.querySelectorAll(".project-card").forEach((card) => {
   card.addEventListener("click", () => {
     const p = projects[card.dataset.index];
@@ -339,39 +379,11 @@ document.querySelectorAll(".project-card").forEach((card) => {
       liveBtn.href = p.live;
       gitBtn.href = p.git;
     }
-
-    // Background: real project video, or the animated "in progress" AI scene
-    if (p.pending) {
-      modalVideo.pause();
-      modalVideo.removeAttribute("src");
-      modalVideo.load();
-      modalVideo.style.display = "none";
-      modalBox.classList.add("show-ai");
-    } else {
-      modalBox.classList.remove("show-ai");
-      if (p.video) {
-        modalVideo.style.display = "block";
-        if (modalVideo.getAttribute("src") !== p.video) {
-          modalVideo.pause();
-          modalVideo.src = p.video;
-          modalVideo.load();
-        }
-        modalVideo.currentTime = 0;
-        modalVideo.play().catch(() => {});
-      } else {
-        modalVideo.pause();
-        modalVideo.removeAttribute("src");
-        modalVideo.load();
-        modalVideo.style.display = "none";
-      }
-    }
-
     modal.classList.add("active");
   });
 });
 function closeModal() {
   modal.classList.remove("active");
-  modalVideo.pause();
 }
 document.getElementById("modal-close").addEventListener("click", closeModal);
 modal.addEventListener("click", (e) => {
@@ -395,31 +407,76 @@ navLinks.querySelectorAll("a").forEach((a) =>
   }),
 );
 
-/* ---------------- Floating background particles ---------------- */
-const particleLayer = document.getElementById("bg-particles");
-const particleColors = ["#38bdf8", "#818cf8", "#61dafb"];
+/* ---------------- Flowing "snake" line background (replaces dot particles) ---------------- */
+const snakeLayer = document.getElementById("bg-particles");
 const reduceMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)",
 ).matches;
-let particleCSS = "";
-for (let i = 0; i < 40; i++) {
-  const size = (Math.random() * 3 + 1.5).toFixed(1);
-  const left = (Math.random() * 100).toFixed(2);
-  const top = (Math.random() * 100).toFixed(2);
-  const color = particleColors[i % particleColors.length];
-  const dur = (Math.random() * 14 + 10).toFixed(1);
-  const delay = (Math.random() * 8).toFixed(1);
-  const dx = (Math.random() * 120 - 60).toFixed(0);
-  const dy = (Math.random() * 120 - 60).toFixed(0);
-  const el = document.createElement("div");
-  el.className = "particle";
-  el.style.cssText = `width:${size}px;height:${size}px;left:${left}%;top:${top}%;background:${color};opacity:${(Math.random() * 0.5 + 0.35).toFixed(2)};animation:${reduceMotion ? "none" : `wander${i} ${dur}s ease-in-out ${delay}s infinite alternate`}`;
-  particleLayer.appendChild(el);
-  particleCSS += `@keyframes wander${i}{ from{ transform:translate(0,0); } to{ transform:translate(${dx}px, ${dy}px); } }`;
+
+function buildWavePath(unitWidth, segWidth, amp, y) {
+  let d = `M0,${y}`;
+  let x = 0,
+    up = true;
+  while (x < unitWidth - 0.5) {
+    const nx = x + segWidth;
+    const cy = up ? y - amp : y + amp;
+    d += ` Q${x + segWidth / 2},${cy.toFixed(1)} ${nx},${y}`;
+    x = nx;
+    up = !up;
+  }
+  return d;
 }
-const styleTag = document.createElement("style");
-styleTag.textContent = particleCSS;
-document.head.appendChild(styleTag);
+
+const snakeConfigs = [
+  {
+    color: "#3355E0",
+    top: 10,
+    amp: 16,
+    segWidth: 110,
+    dur: 26,
+    reverse: false,
+  },
+  { color: "#6C5CE7", top: 30, amp: 22, segWidth: 140, dur: 34, reverse: true },
+  { color: "#12A594", top: 50, amp: 14, segWidth: 95, dur: 22, reverse: false },
+  { color: "#D98A5A", top: 68, amp: 20, segWidth: 130, dur: 30, reverse: true },
+  {
+    color: "#D9A441",
+    top: 86,
+    amp: 12,
+    segWidth: 100,
+    dur: 20,
+    reverse: false,
+  },
+];
+
+const REPEATS = 6;
+let snakeCSS = "";
+snakeConfigs.forEach((cfg, i) => {
+  const unitWidth = cfg.segWidth * 4; // 4 segments per unit = 2 full up/down cycles
+  const svgHeight = cfg.amp * 2 + 8;
+  const y = svgHeight / 2;
+  const d = buildWavePath(unitWidth, cfg.segWidth, cfg.amp, y);
+
+  let pathsHTML = "";
+  for (let k = 0; k < REPEATS; k++) {
+    pathsHTML += `<path d="${d}" transform="translate(${k * unitWidth},0)" fill="none" stroke="${cfg.color}" stroke-width="2.5" stroke-linecap="round" opacity="0.35"/>`;
+  }
+
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("viewBox", `0 0 ${unitWidth * REPEATS} ${svgHeight}`);
+  svg.setAttribute("preserveAspectRatio", "none");
+  svg.classList.add("snake-line");
+  svg.style.cssText = `top:${cfg.top}%; width:${unitWidth * REPEATS}px; height:${svgHeight}px; animation:${reduceMotion ? "none" : `snakeMove${i} ${cfg.dur}s linear infinite`};`;
+  svg.innerHTML = pathsHTML;
+  snakeLayer.appendChild(svg);
+
+  const from = cfg.reverse ? `-${unitWidth}px` : "0px";
+  const to = cfg.reverse ? "0px" : `-${unitWidth}px`;
+  snakeCSS += `@keyframes snakeMove${i}{ from{ transform:translateX(${from}); } to{ transform:translateX(${to}); } }`;
+});
+const snakeStyleTag = document.createElement("style");
+snakeStyleTag.textContent = snakeCSS;
+document.head.appendChild(snakeStyleTag);
 
 /* Grid drifts gently on scroll for parallax depth */
 let ticking = false;
