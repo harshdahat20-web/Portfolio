@@ -150,40 +150,122 @@ const skillChipHTML = skills
 document.getElementById("skills-track").innerHTML = skillChipHTML;
 document.getElementById("skills-track-2").innerHTML = skillChipHTML;
 
-/* ---------------- Skill click "blast" ---------------- */
-document.querySelectorAll(".skill-chip").forEach((chip) => {
-  chip.addEventListener("click", () => {
-    const icon = chip.dataset.icon;
-    const color = chip.dataset.color;
-    const overlay = document.createElement("div");
-    overlay.className = "blast-overlay show";
-    overlay.style.setProperty("--chip-color", color);
+/* ---------------- Mobile peeking-stack carousel ---------------- */
+const carouselStage = document.getElementById("carousel-stage");
+const carouselDots = document.getElementById("carousel-dots");
+let carouselIndex = 0;
 
-    const logo = document.createElement("div");
-    logo.className = "blast-logo";
-    logo.style.setProperty("--chip-color", color);
-    logo.innerHTML = `<img src="${icon}" alt="">`;
-    overlay.appendChild(logo);
-    document.body.appendChild(overlay);
+carouselStage.innerHTML = skills
+  .map(
+    (s) => `
+    <div class="carousel-card" style="--chip-color:${s.color}" data-icon="${s.icon}" data-color="${s.color}">
+      <div class="icon-badge"><img src="${s.icon}" alt="${s.name} logo" loading="lazy"></div>
+      <span>${s.name}</span>
+      <div class="skill-cat">${s.cat}</div>
+    </div>
+  `,
+  )
+  .join("");
+carouselDots.innerHTML = skills.map(() => `<span></span>`).join("");
 
-    for (let i = 0; i < 14; i++) {
-      const angle = (Math.PI * 2 * i) / 14;
-      const dist = 90 + Math.random() * 60;
-      const p = document.createElement("div");
-      p.className = "blast-particle";
-      p.style.setProperty("--chip-color", color);
-      p.style.setProperty("--px", `${Math.cos(angle) * dist}px`);
-      p.style.setProperty("--py", `${Math.sin(angle) * dist}px`);
-      p.style.animationDelay = `${Math.random() * 0.1}s`;
-      overlay.appendChild(p);
-    }
+const carouselCards = Array.from(
+  carouselStage.querySelectorAll(".carousel-card"),
+);
+const carouselDotEls = Array.from(carouselDots.querySelectorAll("span"));
+const n = carouselCards.length;
 
-    setTimeout(() => {
-      overlay.classList.remove("show");
-      overlay.classList.add("hide");
-      setTimeout(() => overlay.remove(), 350);
-    }, 1000);
+function renderCarousel() {
+  carouselCards.forEach((card, i) => {
+    let offset = (i - carouselIndex + n) % n;
+    if (offset > n / 2) offset -= n;
+    card.classList.remove("is-active", "is-prev", "is-next", "is-far");
+    if (offset === 0) card.classList.add("is-active");
+    else if (offset === -1) card.classList.add("is-prev");
+    else if (offset === 1) card.classList.add("is-next");
+    else card.classList.add("is-far");
   });
+  carouselDotEls.forEach((dot, i) =>
+    dot.classList.toggle("active", i === carouselIndex),
+  );
+}
+function goToCarousel(newIndex) {
+  carouselIndex = (newIndex + n) % n;
+  renderCarousel();
+}
+renderCarousel();
+
+let carouselTimer = setInterval(() => goToCarousel(carouselIndex + 1), 2600);
+function resetCarouselTimer() {
+  clearInterval(carouselTimer);
+  carouselTimer = setInterval(() => goToCarousel(carouselIndex + 1), 2600);
+}
+
+let touchStartY = null;
+carouselStage.addEventListener(
+  "touchstart",
+  (e) => {
+    touchStartY = e.touches[0].clientY;
+  },
+  { passive: true },
+);
+carouselStage.addEventListener("touchend", (e) => {
+  if (touchStartY === null) return;
+  const deltaY = e.changedTouches[0].clientY - touchStartY;
+  if (Math.abs(deltaY) > 30) {
+    goToCarousel(carouselIndex + (deltaY < 0 ? 1 : -1));
+    resetCarouselTimer();
+  }
+  touchStartY = null;
+});
+carouselStage.addEventListener("click", (e) => {
+  const card = e.target.closest(".carousel-card");
+  if (!card) return;
+  if (card.classList.contains("is-active")) {
+    triggerBlast(card.dataset.icon, card.dataset.color);
+  } else if (card.classList.contains("is-prev")) {
+    goToCarousel(carouselIndex - 1);
+    resetCarouselTimer();
+  } else if (card.classList.contains("is-next")) {
+    goToCarousel(carouselIndex + 1);
+    resetCarouselTimer();
+  }
+});
+
+/* ---------------- Skill click "blast" ---------------- */
+function triggerBlast(icon, color) {
+  const overlay = document.createElement("div");
+  overlay.className = "blast-overlay show";
+  overlay.style.setProperty("--chip-color", color);
+
+  const logo = document.createElement("div");
+  logo.className = "blast-logo";
+  logo.style.setProperty("--chip-color", color);
+  logo.innerHTML = `<img src="${icon}" alt="">`;
+  overlay.appendChild(logo);
+  document.body.appendChild(overlay);
+
+  for (let i = 0; i < 14; i++) {
+    const angle = (Math.PI * 2 * i) / 14;
+    const dist = 90 + Math.random() * 60;
+    const p = document.createElement("div");
+    p.className = "blast-particle";
+    p.style.setProperty("--chip-color", color);
+    p.style.setProperty("--px", `${Math.cos(angle) * dist}px`);
+    p.style.setProperty("--py", `${Math.sin(angle) * dist}px`);
+    p.style.animationDelay = `${Math.random() * 0.1}s`;
+    overlay.appendChild(p);
+  }
+
+  setTimeout(() => {
+    overlay.classList.remove("show");
+    overlay.classList.add("hide");
+    setTimeout(() => overlay.remove(), 350);
+  }, 1000);
+}
+document.querySelectorAll(".skill-chip").forEach((chip) => {
+  chip.addEventListener("click", () =>
+    triggerBlast(chip.dataset.icon, chip.dataset.color),
+  );
 });
 
 /* ---------------- Rocket launch background ---------------- */
