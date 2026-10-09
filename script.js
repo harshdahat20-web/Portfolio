@@ -274,11 +274,11 @@ const rocketSVG = `
     <svg viewBox="0 0 34 70" xmlns="http://www.w3.org/2000/svg">
       <ellipse class="flame" cx="17" cy="62" rx="6" ry="12" fill="#e0a52e"/>
       <ellipse class="flame" cx="17" cy="60" rx="3.5" ry="8" fill="#f3cf7a"/>
-      <path d="M17 2 C26 14 27 32 24 46 L10 46 C7 32 8 14 17 2 Z" fill="#252525" stroke="#71806A" stroke-width="1.2"/>
-      <path d="M17 2 C22 10 24 20 24 30 L10 30 C10 20 12 10 17 2 Z" fill="#71806A"/>
-      <circle cx="17" cy="24" r="4.5" fill="#F4F2EC"/>
-      <path d="M10 34 L2 46 L10 46 Z" fill="#8C6E54"/>
-      <path d="M24 34 L32 46 L24 46 Z" fill="#8C6E54"/>
+      <path d="M17 2 C26 14 27 32 24 46 L10 46 C7 32 8 14 17 2 Z" fill="#1C2033" stroke="#3F4FA3" stroke-width="1.2"/>
+      <path d="M17 2 C22 10 24 20 24 30 L10 30 C10 20 12 10 17 2 Z" fill="#3F4FA3"/>
+      <circle cx="17" cy="24" r="4.5" fill="#F5F3EE"/>
+      <path d="M10 34 L2 46 L10 46 Z" fill="#C4553F"/>
+      <path d="M24 34 L32 46 L24 46 Z" fill="#C4553F"/>
     </svg>`;
 function spawnRocket() {
   const rocket = document.createElement("div");
@@ -368,33 +368,34 @@ const projects = [
 const aiBgSVG = `
     <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
       <g class="ai-codelines">
-        <rect x="14" y="10" width="46" height="4" rx="2" fill="#71806A" opacity="0.5"/>
-        <rect x="14" y="20" width="30" height="4" rx="2" fill="#8C6E54" opacity="0.4"/>
-        <rect x="14" y="30" width="54" height="4" rx="2" fill="#71806A" opacity="0.5"/>
-        <rect x="14" y="40" width="24" height="4" rx="2" fill="#5C7A72" opacity="0.4"/>
-        <rect x="14" y="50" width="40" height="4" rx="2" fill="#8C6E54" opacity="0.4"/>
-        <rect x="14" y="60" width="50" height="4" rx="2" fill="#71806A" opacity="0.5"/>
+        <rect x="14" y="10" width="46" height="4" rx="2" fill="#3F4FA3" opacity="0.5"/>
+        <rect x="14" y="20" width="30" height="4" rx="2" fill="#C4553F" opacity="0.4"/>
+        <rect x="14" y="30" width="54" height="4" rx="2" fill="#3F4FA3" opacity="0.5"/>
+        <rect x="14" y="40" width="24" height="4" rx="2" fill="#2E9C8F" opacity="0.4"/>
+        <rect x="14" y="50" width="40" height="4" rx="2" fill="#C4553F" opacity="0.4"/>
+        <rect x="14" y="60" width="50" height="4" rx="2" fill="#3F4FA3" opacity="0.5"/>
       </g>
       <g class="ai-gear" transform="translate(170,30)">
-        <circle r="12" fill="none" stroke="#8C6E54" stroke-width="3"/>
-        <circle r="4" fill="#8C6E54"/>
+        <circle r="12" fill="none" stroke="#C4553F" stroke-width="3"/>
+        <circle r="4" fill="#C4553F"/>
       </g>
       <g transform="translate(100,95)">
-        <rect x="-22" y="-30" width="44" height="34" rx="10" fill="#201F1C" stroke="#71806A" stroke-width="2.5"/>
-        <line x1="0" y1="-30" x2="0" y2="-40" stroke="#71806A" stroke-width="2.5"/>
-        <circle cx="0" cy="-42" r="3.5" fill="#5C7A72" class="ai-antenna"/>
-        <circle cx="-10" cy="-16" r="4" fill="#5C7A72" class="ai-eye"/>
-        <circle cx="10" cy="-16" r="4" fill="#5C7A72" class="ai-eye"/>
+        <rect x="-22" y="-30" width="44" height="34" rx="10" fill="#14162A" stroke="#3F4FA3" stroke-width="2.5"/>
+        <line x1="0" y1="-30" x2="0" y2="-40" stroke="#3F4FA3" stroke-width="2.5"/>
+        <circle cx="0" cy="-42" r="3.5" fill="#2E9C8F" class="ai-antenna"/>
+        <circle cx="-10" cy="-16" r="4" fill="#2E9C8F" class="ai-eye"/>
+        <circle cx="10" cy="-16" r="4" fill="#2E9C8F" class="ai-eye"/>
       </g>
-      <rect x="14" y="122" width="172" height="5" rx="2.5" fill="#3A382F"/>
-      <rect x="14" y="122" width="60" height="5" rx="2.5" fill="#71806A" class="ai-progress"/>
+      <rect x="14" y="122" width="172" height="5" rx="2.5" fill="#2B2F55"/>
+      <rect x="14" y="122" width="60" height="5" rx="2.5" fill="#3F4FA3" class="ai-progress"/>
     </svg>`;
 
 const projectsGrid = document.getElementById("projects-grid");
 projectsGrid.innerHTML = projects
   .map(
     (p, i) => `
-    <div class="project-row reveal reveal-up${p.pending ? " pending" : ""}" style="transition-delay:${i * 0.1}s">
+    <div class="project-row frame-box${p.pending ? " pending" : ""}">
+      <div class="frame-tab">${String(i + 1).padStart(2, "0")}<small>/ ${String(projects.length).padStart(2, "0")}</small></div>
       <div class="project-media">
         ${
           p.pending
@@ -402,7 +403,6 @@ projectsGrid.innerHTML = projects
             : `<video class="card-bg-video" muted loop playsinline preload="metadata" src="${p.video}"></video>`
         }
         <div class="card-tint"></div>
-        <div class="card-num">${String(i + 1).padStart(2, "0")}</div>
       </div>
       <div class="project-info">
         <h3>${p.title}${p.pending ? '<span class="card-status">In progress</span>' : ""}</h3>
@@ -497,10 +497,10 @@ if (gsapReady) {
   const sx = isMobile ? 0.4 : 1; // squeeze side objects on narrow screens
   const tScale = prefersReducedMotion ? 0 : 1; // freeze idle motion for reduced-motion users
 
-  const LIGHT_FOG = new THREE.Color(0xf4f2ec);
-  const DARK_FOG = new THREE.Color(0x201f1c);
+  const LIGHT_FOG = new THREE.Color(0xf5f3ee);
+  const DARK_FOG = new THREE.Color(0x14162a);
   const scene = new THREE.Scene();
-  scene.fog = new THREE.Fog(0xf4f2ec, 12, isMobile ? 55 : 78);
+  scene.fog = new THREE.Fog(0xf5f3ee, 12, isMobile ? 55 : 78);
   const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 220);
   camera.position.set(0, 0, 11);
 
@@ -509,12 +509,12 @@ if (gsapReady) {
   sun.position.set(3, 5, 6);
   scene.add(sun);
 
-  const sage = 0x71806a,
-    clay = 0x8c6e54,
-    teal = 0x5c7a72,
-    rust = 0xb5714e,
-    gold = 0xc99a4e,
-    charcoal = 0x252525;
+  const sage = 0x3f4fa3,
+    clay = 0xe2725b,
+    teal = 0x2e9c8f,
+    rust = 0xb4547a,
+    gold = 0xe3a72f,
+    charcoal = 0x1c2033;
   const palette = [sage, clay, teal, charcoal];
 
   function rectLoop(w, h, color, opacity) {
@@ -691,7 +691,7 @@ if (gsapReady) {
   for (let i = 0; i < 5; i++) {
     const g = new THREE.Group();
     const col = [sage, clay, teal, rust, gold][i];
-    g.add(rectLoop(13.5, 7.6, col, 0.7));
+    g.add(rectLoop(13.5, 7.6, col, 0.45));
     const label = makeLabel(
       `0${i + 1}`,
       "#" + col.toString(16).padStart(6, "0"),
@@ -733,7 +733,7 @@ if (gsapReady) {
   /* ----- Ambient world: floor grid + dust + snake-tubes ----- */
   const grid = new THREE.GridHelper(260, 104, sage, sage);
   grid.material.transparent = true;
-  grid.material.opacity = 0.22;
+  grid.material.opacity = 0.18;
   grid.position.set(0, -7.5, -70);
   scene.add(grid);
 
@@ -776,11 +776,11 @@ if (gsapReady) {
     const curve = new THREE.CatmullRomCurve3(pts);
     scene.add(
       new THREE.Mesh(
-        new THREE.TubeGeometry(curve, 220, 0.045, 6, false),
+        new THREE.TubeGeometry(curve, 220, 0.032, 6, false),
         new THREE.MeshBasicMaterial({
           color: snakeColors[s],
           transparent: true,
-          opacity: 0.6,
+          opacity: 0.4,
         }),
       ),
     );
@@ -1023,6 +1023,46 @@ if (gsapReady) {
       scrollTrigger: { trigger: el, start: "top 88%", once: true },
     });
   });
+
+  // About window + project frames: 3D "coverflow" tilt tied to scroll position
+  // (tilted when entering, flat when centred, tilted back when leaving)
+  const boxes = document.querySelectorAll(".window-card, .frame-box");
+  if (window.innerWidth >= 760) {
+    boxes.forEach((box) => {
+      gsap.set(box, { transformPerspective: 1100, transformOrigin: "50% 50%" });
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: box,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 0.6,
+          },
+        })
+        .fromTo(
+          box,
+          { rotateX: 16, scale: 0.93, opacity: 0.15 },
+          { rotateX: 0, scale: 1, opacity: 1, ease: "none", duration: 1 },
+        )
+        .to(box, {
+          rotateX: -12,
+          scale: 0.96,
+          opacity: 0.55,
+          ease: "none",
+          duration: 1,
+        });
+    });
+  } else {
+    boxes.forEach((box) => {
+      gsap.from(box, {
+        opacity: 0,
+        y: 40,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: { trigger: box, start: "top 90%", once: true },
+      });
+    });
+  }
 
   // Stagger project tags + feature bullets
   document.querySelectorAll(".project-row").forEach((row) => {
